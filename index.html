@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width,initial-scale=1,0"/>
+        <title>Web page</title>
+        <style>
+            body { font-family: Arial, Helvetica, sans-serif;padding: 20px;}
+            .hover-effect:hover { background-color: aliceblue;cursor: pointer;}
+            .tabs {display: flex;cursor: pointer;margin-bottom: 10px ;}
+            .tab-content { display:none; border: 1px solid #ccc; padding: 10px ;}
+            .tab-content.active { display: block ;}
+            .feedback { font-size: 0.9em; color:red;}
+            .valid{color:beige;}
+            .gallery img {width:200px; height: 150px; display: none;}
+            .gallery img.active { display: block;}
+        </style>
+    </head>
+    <body>
+        <h1>My web page</h1>
+
+        <!---Event handling-->
+        <button id="clickBtn">Click Me</button>
+        <div class="hover-effect" id="hoverTarget">Hover over me</div>
+        <input type="text" id="keylessinput" placeholder="amazing"/>
+        <button id="secretBtn">Secret Action</button>
+
+        <!---Interactive Elements-->
+        <button id="colorBtn">Change my color</button>
+        <div class="gallery">
+            <img src="https://" class="active">
+            <img src="https://">
+        </div>
+        <button id="nextImage">Next Image</button>
+
+        <div class="tabs">
+            <div class="tab" data-target="tab1">Tab 1</div>
+            <div class="tab" data-target="tab2">Tab 2</div>
+        </div>
+        <div class="tab-content" id="tab1">This is content for tab 1</div>
+        <div class="tab-content" id="tab2">This is content for tab 2</div>
+
+        <!---Form Validation-->
+
+        <form id="myForm">
+            <label>Email: <input type="email"id="email" required></label><span class="feedback" id="emailfeedback"></span><br><br>
+            <label>Password: <input type="password" id="password" required></label><span class="feedback" id="passfeedback"></span><br><br>
+            <button type="submit">submit</button>
+        </form>
+        <script>
+            //Button click
+            document.getElementById('clickBtn').addEventListener('click',() => alert('Button clicked!'));
+
+            //Keyless detection
+
+            document.getElementById('keylessInput').addEventListener('input', e => {console.log('Input changed:', e.target.value);});
+
+            //Secret double-click
+            let pressTimer;
+            const secretBtn = document.getElementById('secretBtn');
+
+            secretBtn.addEventListener('dblclick',() => alert('Double click detected!'));
+            secretBtn.addEventListener('mousedown', () =>{pressTimer = setTimeout(() =>alert('Long press detected!'),1000) });
+            secretBtn.addEventListener('mouseup', () => clearTimeout(pressTimer));
+
+            //button that changes color
+            document.getElementById('colorBtn').addEventListener('click', e =>{e.target.style.backgroundColor = e.target.style.backgroundColor == 'lightgreen' ? 'intial' : 'lightgreen'; e.target.textContent = e.target.textContent === 'Change My Color' ?'Color Changed!' : 'Change My Color';});
+
+            //Image slideshow
+            const images = document.querySelectorAll('.gallery img');
+            let currentImage = 0;
+            document.getElementById('nextImg').addEventListener('click', () =>{images[currentImage].classList.remove('active'); currentImage = (currentImage + 1) % images.lenght; images[currentImage].classList.add('active');});
+        </script>
+
+    </body>
+        
+    
+</html>
